@@ -7,13 +7,16 @@ package net.cubeek.gumtree.adb.entity;
  */
 public enum Gender {
 
-    MALE("Male"),
-    FEMALE("Female");
+    MALE("Male", "M"),
+    FEMALE("Female", "F");
 
     private final String key;
 
-    private Gender(String key) {
+    private final String arg;
+
+    private Gender(String key, String arg) {
         this.key = key;
+        this.arg = arg;
     }
 
     public static Gender findByKey(String key) {
@@ -24,4 +27,11 @@ public enum Gender {
         throw new IllegalArgumentException("Unknown key: " + key);
     }
 
+    public static Gender findByArg(String arg) {
+        for (Gender gender : values()) {
+            if (gender.arg.equals(arg))
+                return gender;
+        }
+        return null;
+    }
 }

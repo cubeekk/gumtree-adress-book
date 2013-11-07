@@ -7,6 +7,7 @@ import net.cubeek.gumtree.adb.entity.Person;
 import net.cubeek.gumtree.adb.service.AdbService;
 import net.cubeek.gumtree.adb.service.AdbServiceImpl;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,26 +22,63 @@ public class AddressBookApplication {
 
     private AdbService service;
 
+    public AddressBookApplication(@NotNull final File dataFile) {
+        init(dataFile);
+        printOldestPerson();
+    }
+
+    public AddressBookApplication(@NotNull final File dataFile, @Nullable final Gender gender) {
+        init(dataFile);
+        printCountGender(gender);
+    }
+
+    public AddressBookApplication(@NotNull final File dataFile, @Nullable final String name1, @Nullable final String name2) {
+        init(dataFile);
+        printOlderThan(name1, name2);
+    }
+
     public static void main(String[] args) {
-        if (args.length != 1) {
+        if (args.length < 2) logError(USAGE);
+
+        final File dataFile = new File(args[0]);
+        if (!dataFile.exists()) {
             logError(USAGE);
         }
 
-        new AddressBookApplication(args[0]);
+        int option = -1;
+        try {
+            option = Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            // nop
+        }
+
+        switch (option) {
+            case 1:
+                if (args.length != 3) logError(USAGE);
+                new AddressBookApplication(dataFile, Gender.findByArg(args[2]));
+                break;
+            case 2:
+                new AddressBookApplication(dataFile);
+                break;
+            case 3:
+                if (args.length != 4) logError(USAGE);
+                new AddressBookApplication(dataFile, args[2], args[3]);
+                break;
+            default:
+                logError(USAGE);
+        }
     }
 
-    public AddressBookApplication(@NotNull final String fileName) {
+    /**
+     * Initialize service
+     *
+     * @param dataFile db data file
+     */
+    private void init(@NotNull final File dataFile) {
         try {
-            service = new AdbServiceImpl(new FileInputStream(new File(fileName)));
-
-            // Answer Q1
-            printCountGender(Gender.MALE);
-            // Answer Q2
-            printOldestPerson();
-            // Answer Q3
-            printOlderThan("Bill McKnight", "Paul Robinson");
+            service = new AdbServiceImpl(new FileInputStream(dataFile));
         } catch (FileNotFoundException e) {
-            logError("Source DB file not found! " + fileName);
+            logError("Source DB file not found! " + dataFile.getAbsolutePath());
         } catch (InitializationException e) {
             logError("Error occurred while trying to initialize DB!");
         }
@@ -96,5 +134,8 @@ public class AddressBookApplication {
         System.exit(1);
     }
 
-    private static final String USAGE = "Usage: java -jar address-book.jar <path to db file>";
+    private static final String USAGE = "Usage: java -jar address-book.jar <path to db file> <action> [aditional parameters for actions]\n\n" +
+            "actions: 1 - count by gender                 parameters: <gender - M or F>\n" +
+            "         2 - show oldest person              parameters: none\n" +
+            "         3 - compare age for 2 people        parameters: <first person name> <second person name>";
 }
