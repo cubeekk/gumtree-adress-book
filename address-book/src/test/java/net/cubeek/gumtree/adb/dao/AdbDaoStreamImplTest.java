@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import static net.cubeek.gumtree.adb.data.MockData.*;
 
@@ -50,10 +49,14 @@ public class AdbDaoStreamImplTest {
         assertEquals("Retrieved entry dob does not match!", DOB_F, personFemale.getDob());
     }
 
-    @Test
+    @Test(expected = PersonNotFoundException.class)
     public void testFindByName_wrongName() throws Exception {
-        final Person person = dao.findByName(NAME_NA);
-        assertNull("Retrieved was not null!", person);
+        dao.findByName(NAME_NA);
+    }
+
+    @Test(expected = PersonNotFoundException.class)
+    public void testFindByName_null() throws Exception {
+        dao.findByName(null);
     }
 
 }

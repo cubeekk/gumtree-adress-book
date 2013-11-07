@@ -27,7 +27,7 @@ public interface AdbDao {
      * @param name name for query
      * @return the entry found or <tt>null</tt> if not available
      */
-    @Nullable
-    Person findByName(@Nullable final String name);
+    @NotNull
+    Person findByName(@Nullable final String name) throws PersonNotFoundException;
 
 }

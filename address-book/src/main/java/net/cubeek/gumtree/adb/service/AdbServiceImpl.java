@@ -2,9 +2,11 @@ package net.cubeek.gumtree.adb.service;
 
 import net.cubeek.gumtree.adb.dao.AdbDao;
 import net.cubeek.gumtree.adb.dao.AdbDaoStreamImpl;
+import net.cubeek.gumtree.adb.dao.PersonNotFoundException;
 import net.cubeek.gumtree.adb.entity.Gender;
 import net.cubeek.gumtree.adb.entity.Person;
 import org.jetbrains.annotations.Nullable;
+import org.joda.time.Days;
 
 import java.io.InputStream;
 
@@ -42,8 +44,13 @@ public class AdbServiceImpl implements AdbService {
     }
 
     @Override
-    public int getDaysOlder(String firstName, String secondName) {
-        return 0;
+    public int getDaysOlder(String firstName, String secondName) throws PersonNotFoundException {
+        final Person first = dao.findByName(firstName);
+        final Person second = dao.findByName(secondName);
+
+        final Days days = Days.daysBetween(first.getDob(), second.getDob());
+
+        return days.getDays();
     }
 
 }

@@ -1,6 +1,6 @@
 package net.cubeek.gumtree.adb.service;
 
-import net.cubeek.gumtree.adb.dao.AdbDaoStreamImpl;
+import net.cubeek.gumtree.adb.dao.PersonNotFoundException;
 import net.cubeek.gumtree.adb.entity.Gender;
 import net.cubeek.gumtree.adb.entity.Person;
 import org.junit.Before;
@@ -57,11 +57,11 @@ public class AdbServiceImplTest {
     public void testGetDaysOlder_younger() throws Exception {
         final int days = service.getDaysOlder(NAME_M, NAME_OLDEST);
         assertTrue("Days for younger person should be lesser than 0", 0 > days);
-        assertEquals("Wrong number of days evaluated!", 945, days);
+        assertEquals("Wrong number of days evaluated!", -945, days);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetDaysOlder_invalid() {
+    @Test(expected = PersonNotFoundException.class)
+    public void testGetDaysOlder_invalid() throws Exception {
         service.getDaysOlder(null, NAME_OLDEST);
     }
 }

@@ -43,16 +43,17 @@ public class AdbDaoStreamImpl implements AdbDao {
         return entries;
     }
 
-    @Nullable
+    @NotNull
     @Override
-    public Person findByName(@Nullable final String name) {
+    public Person findByName(@Nullable final String name) throws PersonNotFoundException {
         if (name != null) {
             for (Person person : entries) {
                 if (person.getName().equals(name))
                     return person;
             }
         }
-        return null;
+
+        throw new PersonNotFoundException(name);
     }
 
     /**

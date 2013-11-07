@@ -1,5 +1,6 @@
 package net.cubeek.gumtree.adb.service;
 
+import net.cubeek.gumtree.adb.dao.PersonNotFoundException;
 import net.cubeek.gumtree.adb.entity.Gender;
 import net.cubeek.gumtree.adb.entity.Person;
 import org.jetbrains.annotations.Nullable;
@@ -35,6 +36,6 @@ public interface AdbService {
      *
      * @return a number of days of which the first person is older over the other
      */
-    int getDaysOlder(String firstName, String secondName);
+    int getDaysOlder(String firstName, String secondName) throws PersonNotFoundException;
 
 }
