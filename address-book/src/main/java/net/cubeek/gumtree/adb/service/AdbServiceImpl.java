@@ -40,7 +40,15 @@ public class AdbServiceImpl implements AdbService {
     @Nullable
     @Override
     public Person getOldestPerson() {
-        return null;
+        Person result = null;
+
+        for (Person person : dao.findAll()) {
+            if (result == null || person.getDob().isBefore(result.getDob())) {
+                result = person;
+            }
+        }
+
+        return result;
     }
 
     @Override
