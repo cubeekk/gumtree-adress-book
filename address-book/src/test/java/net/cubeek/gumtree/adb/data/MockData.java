@@ -6,7 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 /**
- * Mock data for the {@link net.cubeek.gumtree.adb.dao.AdbDaoStreamImplTest}
+ * Mock data for the {@link net.cubeek.gumtree.adb.dao.AdbDaoStreamImplTest}.
  *
  * @author Jakub Stonavsky &lt;stonavsky&#64;cubeek.net&gt;
  */
@@ -26,13 +26,19 @@ public final class MockData {
 
     public static final LocalDate DOB_F = LocalDate.parse("1991-11-20");
 
+
+    public static final String NAME_OLDEST = "Wes Jackson";
+
+    public static final LocalDate DOB_OLDEST = LocalDate.parse("1974-08-14");
+
+
     static {
         final StringBuilder sb = new StringBuilder();
         sb.append(NAME_M).append(", Male, 16/03/77").append("\n");
         sb.append("Paul Robinson, Male, 15/01/85").append("\n");
         sb.append(NAME_F).append(", Female, 20/11/91").append("\n");
         sb.append("Sarah Stone, Female, 20/09/80").append("\n");
-        sb.append("Wes Jackson, Male, 14/08/74").append("\n");
+        sb.append(NAME_OLDEST).append(", Male, 14/08/74").append("\n");
         DATA = sb.toString();
     }
 

@@ -14,6 +14,8 @@ import static org.junit.Assert.assertNull;
 import static net.cubeek.gumtree.adb.data.MockData.*;
 
 /**
+ * {@link AdbDaoStreamImpl} test.
+ *
  * @author Jakub Stonavsky &lt;stonavsky&#64;cubeek.net&gt;
  */
 public class AdbDaoStreamImplTest {
