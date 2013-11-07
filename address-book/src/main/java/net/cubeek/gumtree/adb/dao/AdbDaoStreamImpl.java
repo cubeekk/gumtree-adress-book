@@ -40,12 +40,18 @@ public class AdbDaoStreamImpl implements AdbDao {
     @NotNull
     @Override
     public List<Person> findAll() {
-        return new ArrayList<Person>();
+        return entries;
     }
 
     @Nullable
     @Override
-    public Person findByName(@Nullable String name) {
+    public Person findByName(@Nullable final String name) {
+        if (name != null) {
+            for (Person person : entries) {
+                if (person.getName().equals(name))
+                    return person;
+            }
+        }
         return null;
     }
 
