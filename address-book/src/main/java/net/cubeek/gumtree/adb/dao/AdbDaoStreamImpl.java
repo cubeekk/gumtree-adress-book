@@ -29,7 +29,7 @@ public class AdbDaoStreamImpl implements AdbDao {
      *
      * @param data database {@link InputStream}
      */
-    public AdbDaoStreamImpl(@NotNull InputStream data) {
+    public AdbDaoStreamImpl(@NotNull InputStream data) throws InitializationException {
         Validate.notNull(data, "Address book InputStream cannot be null!");
 
         this.entries = new ArrayList<Person>();
@@ -61,7 +61,7 @@ public class AdbDaoStreamImpl implements AdbDao {
      *
      * @param data the stream
      */
-    private void reload(InputStream data) {
+    private void reload(InputStream data) throws InitializationException {
         entries.clear();
 
         final Scanner scanner = new Scanner(data);
@@ -76,11 +76,11 @@ public class AdbDaoStreamImpl implements AdbDao {
      * @param line data line
      * @return {@link net.cubeek.gumtree.adb.entity.Person} instance
      */
-    private Person parseEntryLine(String line) {
+    private Person parseEntryLine(String line) throws InitializationException {
         final String data[] = line.split(",");
 
         if (data == null || !(data.length == 3))
-            throw new IllegalArgumentException("Incorrect data format found for line: " + line);
+            throw new InitializationException("Incorrect data format found for line: " + line);
 
         final Person person = new Person();
         person.setName(data[NAME].trim());

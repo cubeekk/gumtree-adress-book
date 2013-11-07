@@ -31,11 +31,11 @@ public interface AdbService {
     /**
      * Return how older p1 is than p2
      *
-     * @param firstName name of the 1st person
-     * @param secondName name of the 2nd person
+     * @param firstPersonName name of the 1st person
+     * @param secondPersonName name of the 2nd person
      *
      * @return a number of days of which the first person is older over the other
      */
-    int getDaysOlder(String firstName, String secondName) throws PersonNotFoundException;
+    int getDaysOlder(String firstPersonName, String secondPersonName) throws PersonNotFoundException;
 
 }

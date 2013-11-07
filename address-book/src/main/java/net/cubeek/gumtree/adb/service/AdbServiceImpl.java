@@ -2,6 +2,7 @@ package net.cubeek.gumtree.adb.service;
 
 import net.cubeek.gumtree.adb.dao.AdbDao;
 import net.cubeek.gumtree.adb.dao.AdbDaoStreamImpl;
+import net.cubeek.gumtree.adb.dao.InitializationException;
 import net.cubeek.gumtree.adb.dao.PersonNotFoundException;
 import net.cubeek.gumtree.adb.entity.Gender;
 import net.cubeek.gumtree.adb.entity.Person;
@@ -19,7 +20,7 @@ public class AdbServiceImpl implements AdbService {
 
     private final AdbDao dao;
 
-    public AdbServiceImpl(InputStream data) {
+    public AdbServiceImpl(InputStream data) throws InitializationException {
         dao = new AdbDaoStreamImpl(data);
     }
 
@@ -52,9 +53,9 @@ public class AdbServiceImpl implements AdbService {
     }
 
     @Override
-    public int getDaysOlder(String firstName, String secondName) throws PersonNotFoundException {
-        final Person first = dao.findByName(firstName);
-        final Person second = dao.findByName(secondName);
+    public int getDaysOlder(String firstPersonName, String secondPersonName) throws PersonNotFoundException {
+        final Person first = dao.findByName(firstPersonName);
+        final Person second = dao.findByName(secondPersonName);
 
         final Days days = Days.daysBetween(first.getDob(), second.getDob());
 
