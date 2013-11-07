@@ -23,7 +23,7 @@ public class AdbServiceImplTest {
 
     @Before
     public void setUp() throws Exception {
-        service = new AdbServiceImpl(new AdbDaoStreamImpl(getMockDataStream()));
+        service = new AdbServiceImpl(getMockDataStream());
     }
     @Test
     public void testGetCountByGender() throws Exception {

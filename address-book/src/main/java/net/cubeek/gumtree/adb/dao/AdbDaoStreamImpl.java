@@ -27,14 +27,14 @@ public class AdbDaoStreamImpl implements AdbDao {
     /**
      * Create Dao and initialize the database
      *
-     * @param is database {@link InputStream}
+     * @param data database {@link InputStream}
      */
-    public AdbDaoStreamImpl(@NotNull InputStream is) {
-        Validate.notNull(is, "Address book InputStream cannot be null!");
+    public AdbDaoStreamImpl(@NotNull InputStream data) {
+        Validate.notNull(data, "Address book InputStream cannot be null!");
 
         this.entries = new ArrayList<Person>();
 
-        reload(is);
+        reload(data);
     }
 
     @NotNull
@@ -58,12 +58,12 @@ public class AdbDaoStreamImpl implements AdbDao {
     /**
      * Reload {@link AdbDaoStreamImpl#entries} from {@link InputStream}
      *
-     * @param is the stream
+     * @param data the stream
      */
-    private void reload(InputStream is) {
+    private void reload(InputStream data) {
         entries.clear();
 
-        final Scanner scanner = new Scanner(is);
+        final Scanner scanner = new Scanner(data);
         while (scanner.hasNextLine()) {
             entries.add(parseEntryLine(scanner.nextLine()));
         }

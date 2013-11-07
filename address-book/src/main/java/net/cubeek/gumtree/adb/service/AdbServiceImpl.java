@@ -1,9 +1,12 @@
 package net.cubeek.gumtree.adb.service;
 
+import net.cubeek.gumtree.adb.dao.AdbDao;
 import net.cubeek.gumtree.adb.dao.AdbDaoStreamImpl;
 import net.cubeek.gumtree.adb.entity.Gender;
 import net.cubeek.gumtree.adb.entity.Person;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.InputStream;
 
 /**
  * Address book service implementation.
@@ -12,15 +15,24 @@ import org.jetbrains.annotations.Nullable;
  */
 public class AdbServiceImpl implements AdbService {
 
-    public AdbServiceImpl(String dbFilePath) {
-    }
+    private final AdbDao dao;
 
-    public AdbServiceImpl(AdbDaoStreamImpl adbDaoStream) {
+    public AdbServiceImpl(InputStream data) {
+        dao = new AdbDaoStreamImpl(data);
     }
 
     @Override
     public int getCountByGender(@Nullable Gender gender) {
-        return 0;
+        if (gender == null)
+            return dao.findAll().size();
+
+        int count = 0;
+        for (Person person : dao.findAll()) {
+            if (gender.equals(person.getGender())) {
+                count += 1;
+            }
+        }
+        return count;
     }
 
     @Nullable
