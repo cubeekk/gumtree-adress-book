@@ -25,8 +25,8 @@ not added libs
 usage
 -----
 
-# build the application
-# from address-book module target directory run address-book.jar or address-book-jar-with-dependencies.jar
+* build the application
+* from address-book module target directory run address-book.jar or address-book-jar-with-dependencies.jar
 
 >Display Help:
 >java -jar address-book-jar-with-dependencies.jar
