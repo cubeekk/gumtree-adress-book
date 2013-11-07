@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class AdbDaoStreamImpl implements AdbDao {
     @NotNull
     @Override
     public List<Person> findAll() {
-        return null;
+        return new ArrayList<Person>();
     }
 
     @Nullable
