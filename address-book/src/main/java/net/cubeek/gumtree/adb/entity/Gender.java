@@ -1,5 +1,8 @@
 package net.cubeek.gumtree.adb.entity;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Address book entity gender.
  *
@@ -19,7 +22,8 @@ public enum Gender {
         this.arg = arg;
     }
 
-    public static Gender findByKey(String key) {
+    @NotNull
+    public static Gender findByKey(@Nullable String key) {
         for (Gender gender : values()) {
             if (gender.key.equals(key))
                 return gender;
@@ -27,11 +31,17 @@ public enum Gender {
         throw new IllegalArgumentException("Unknown key: " + key);
     }
 
-    public static Gender findByArg(String arg) {
+    @Nullable
+    public static Gender findByArg(@Nullable String arg) {
         for (Gender gender : values()) {
             if (gender.arg.equals(arg))
                 return gender;
         }
         return null;
+    }
+
+    @NotNull
+    public String getKey() {
+        return key;
     }
 }

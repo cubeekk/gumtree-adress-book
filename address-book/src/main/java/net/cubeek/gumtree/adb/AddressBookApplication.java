@@ -86,10 +86,11 @@ public class AddressBookApplication {
 
     /**
      * Print gender count
+     *
      * @param gender gender
      */
     private void printCountGender(final Gender gender) {
-        System.out.println(String.format("Count of males in DB:  %d", service.getCountByGender(gender)));
+        System.out.println(String.format("Count of %s in DB:  %d", gender.getKey(), service.getCountByGender(gender)));
     }
 
     /**
